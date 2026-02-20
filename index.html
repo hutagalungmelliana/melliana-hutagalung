@@ -3,73 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine's Day!</title>
+    <title>Valentine's Day Interactive Letter</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f8f8;
             overflow: hidden;
-            font-family: Arial, sans-serif;
-            background-color: #fff0f6;
-            color: #d5006d;
-            text-align: center;
         }
-        h1 {
-            margin-top: 50px;
-            font-size: 2.5em;
-        }
-        p {
-            font-size: 1.2em;
+        #hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
         .heart {
             position: absolute;
-            top: -50px;
             width: 20px;
             height: 20px;
             background-color: red;
-            transform: rotate(45deg);
-            animation: fall 5s infinite;
-        }
-        .heart:before,
-        .heart:after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            border-radius: 50%;
-        }
-        .heart:before {
-            top: -10px;
-            left: 0;
-        }
-        .heart:after {
-            left: 10px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: fall infinite linear;
         }
         @keyframes fall {
             0% {
-                transform: translateY(0);
+                transform: translateY(-100vh);
             }
             100% {
-                transform: translateY(100vh) rotate(45deg);
+                transform: translateY(100vh);
             }
         }
+        .button {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #ff4081;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
     </style>
-</head>
-<body>
-    <h1>Happy Valentine's Day!</h1>
-    <p>Sending you love and hearts!</p>
-    <script>
-        function createHeart() {
+<script>
+    function createHearts() {
+        const heartsContainer = document.getElementById('hearts');
+        for (let i = 0; i < 30; i++) {
             const heart = document.createElement('div');
             heart.className = 'heart';
             heart.style.left = Math.random() * 100 + 'vw';
-            document.body.appendChild(heart);
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heartsContainer.appendChild(heart);
         }
-        setInterval(createHeart, 300);
-    </script>
+    }
+    function showLetter() {
+        document.getElementById('letter').style.display = 'block';
+    }
+    function explosionEffect() {
+        const explosion = document.createElement('div');
+        explosion.innerText = '💥 Happy Valentine’s Day! 💥';
+        explosion.style.position = 'absolute';
+        explosion.style.top = '50%';
+        explosion.style.left = '50%';
+        explosion.style.transform = 'translate(-50%, -50%)';
+        explosion.style.fontSize = '40px';
+        explosion.style.color = 'red';
+        document.body.appendChild(explosion);
+        setTimeout(() => explosion.remove(), 3000);
+    }
+</script>
+</head>
+<body onload="createHearts()">
+    <div id="hearts"></div>
+    <h1>Will you be my Valentine?</h1>
+    <button class="button" onclick="showLetter()">Open Letter</button>
+    <div id="letter" style="display:none;">
+        <p>I cherish every moment with you. Would you like to go out with me?</p>
+        <button class="button" onclick="explosionEffect()">Yes</button>
+        <button class="button" onclick="explosionEffect()">No</button>
+    </div>
 </body>
 </html>
