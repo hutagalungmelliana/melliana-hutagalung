@@ -3,44 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Interactive Letter</title>
+    <title>Happy Valentine's Day!</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9e3e3;
-            text-align: center;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #fff0f6;
+            color: #d5006d;
+            text-align: center;
         }
         h1 {
-            color: #e63946;
-        }
-        .letter {
-            background-color: #fafafa;
-            border: 2px solid #e63946;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 600px;
-            margin: auto;
+            margin-top: 50px;
+            font-size: 2.5em;
         }
         p {
             font-size: 1.2em;
-            color: #1d3557;
         }
-        @media (max-width: 600px) {
-            p {
-                font-size: 1em;
+        .heart {
+            position: absolute;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(45deg);
+            animation: fall 5s infinite;
+        }
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        .heart:after {
+            left: 10px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
             }
         }
     </style>
 </head>
 <body>
-    <div class="letter">
-        <h1>Happy Valentine's Day!</h1>
-        <p>Dear [Recipient's Name],</p>
-        <p>I want to take a moment to express my love and affection for you. You fill my life with joy and laughter. Thank you for being you!</p>
-        <p>With all my love,<br>[Your Name]</p>
-        <p>"Love is not about how many days, months, or years you have been together. Love is about how much you love each other every single day."</p>
-    </div>
+    <h1>Happy Valentine's Day!</h1>
+    <p>Sending you love and hearts!</p>
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
 </body>
 </html>
